@@ -32,7 +32,7 @@ describe('Yale to Fale replacement logic', () => {
     expect(content).toContain('alt="Yale Logo"');
   });
 
-  test('should handle text that has no Yale references', () => {
+  test('should leave content unchanged when there are no Yale references', () => {
     const htmlWithoutYale = `
       <!DOCTYPE html>
       <html>
@@ -41,7 +41,7 @@ describe('Yale to Fale replacement logic', () => {
       </head>
       <body>
         <h1>Hello World</h1>
-        <p>This is a test page with no Yale references.</p>
+        <p>This is a test page about universities in general.</p>
       </body>
       </html>
     `;
@@ -49,10 +49,9 @@ describe('Yale to Fale replacement logic', () => {
     const { content } = transformHtml(htmlWithoutYale);
     const $ = cheerio.load(content);
     
-    // Content should remain the same
     expect($.html()).toContain('<title>Test Page</title>');
     expect($.html()).toContain('<h1>Hello World</h1>');
-    expect($.html()).toContain('<p>This is a test page with no Yale references.</p>');
+    expect($.html()).toContain('<p>This is a test page about universities in general.</p>');
   });
 
   test('should handle case-insensitive replacements', () => {
