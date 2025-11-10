@@ -47,8 +47,9 @@ function createApp() {
   return app;
 }
 
+const app = createApp();
+
 function startServer(port = process.env.PORT || 3001) {
-  const app = createApp();
   return app.listen(port, () => {
     console.log(`Faleproxy server running at http://localhost:${port}`);
   });
@@ -58,7 +59,6 @@ if (require.main === module) {
   startServer();
 }
 
-module.exports = {
-  createApp,
-  startServer
-};
+module.exports = app;
+module.exports.createApp = createApp;
+module.exports.startServer = startServer;
